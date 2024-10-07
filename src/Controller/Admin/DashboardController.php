@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Student;
+use App\Entity\Subject;
+use App\Entity\Course;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -48,6 +50,8 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Students', 'fas fa-map-marker-alt', Student::class);
+        yield MenuItem::linkToCrud('Course', 'fas fa-book', Course::class);
+        yield MenuItem::linkToCrud('Subject', 'fas fa-flask', Subject::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
