@@ -27,4 +27,3 @@
 #misc
 .env
 .env.test
-/migrations/
