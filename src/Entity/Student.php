@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\StudentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: StudentRepository::class)]
 class Student
@@ -13,10 +14,14 @@ class Student
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 60)]
+    #[Assert\NotBlank(message: 'Veuillez renseigner votre prénom')]
+    #[Assert\Length(min: 2, max: 50)]
     private ?string $firstName = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 60)]
+    #[Assert\NotBlank(message: 'Veuillez renseigner votre nom')]
+    #[Assert\Length(min: 2, max: 50)]
     private ?string $lastName = null;
 
     #[ORM\Column]
@@ -77,4 +82,13 @@ class Student
 
         return $this;
     }
+
+    // previous
+    public function __toString(): string
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+    // Rest
+
+
 }
