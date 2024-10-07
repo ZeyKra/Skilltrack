@@ -42,6 +42,9 @@ class Course
     #[ORM\ManyToOne(inversedBy: 'courses')]
     private ?Subject $relation = null;
 
+    #[ORM\ManyToOne(inversedBy: 'relation')]
+    private ?Subject $courseSubject = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -139,6 +142,18 @@ class Course
     public function setRelation(?Subject $relation): static
     {
         $this->relation = $relation;
+
+        return $this;
+    }
+
+    public function getCourseSubject(): ?Subject
+    {
+        return $this->courseSubject;
+    }
+
+    public function setCourseSubject(?Subject $courseSubject): static
+    {
+        $this->courseSubject = $courseSubject;
 
         return $this;
     }

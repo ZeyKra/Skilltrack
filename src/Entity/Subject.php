@@ -41,9 +41,16 @@ class Subject
     #[ORM\OneToMany(targetEntity: Course::class, mappedBy: 'relation')]
     private Collection $courses;
 
+    /**
+     * @var Collection<int, Course>
+     */
+    #[ORM\OneToMany(targetEntity: Course::class, mappedBy: 'courseSubject')]
+    private Collection $relation;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
+        $this->relation = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -135,6 +142,36 @@ class Subject
             // set the owning side to null (unless already changed)
             if ($course->getRelation() === $this) {
                 $course->setRelation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Course>
+     */
+    public function getRelation(): Collection
+    {
+        return $this->relation;
+    }
+
+    public function addRelation(Course $relation): static
+    {
+        if (!$this->relation->contains($relation)) {
+            $this->relation->add($relation);
+            $relation->setCourseSubject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelation(Course $relation): static
+    {
+        if ($this->relation->removeElement($relation)) {
+            // set the owning side to null (unless already changed)
+            if ($relation->getCourseSubject() === $this) {
+                $relation->setCourseSubject(null);
             }
         }
 
